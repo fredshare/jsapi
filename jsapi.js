@@ -4,20 +4,20 @@
  
 var JSAPI ={
 	ready : function(onBridgeReady){
-        //先看看全局的WeixinJSBridge存不存在，有些版本的微信WeixinJSBridge会初始化为{}，所以还要看看invoke有没有
-        if (typeof WeixinJSBridge == "undefined" || !WeixinJSBridge.invoke){
-            //没有就监听ready事件
-            if( document.addEventListener ){
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-            }else if (document.attachEvent){
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-            }
-        }else{
-            //初始化结束直接就执行吧！
-            onBridgeReady();
-        }
-    },
+		//先看看全局的WeixinJSBridge存不存在，有些版本的微信WeixinJSBridge会初始化为{}，所以还要看看invoke有没有
+		if (typeof WeixinJSBridge == "undefined" || !WeixinJSBridge.invoke){
+		    //没有就监听ready事件
+		    if( document.addEventListener ){
+		        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		    }else if (document.attachEvent){
+		        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+		        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		    }
+		}else{
+		    //初始化结束直接就执行吧！
+		    onBridgeReady();
+		}
+	},
 	invoke : function(methodName, args, callback){
 		this.ready(function(){
 			WeixinJSBridge.invoke(methodName, args, callback);
