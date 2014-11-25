@@ -17,4 +17,19 @@ JSAPI.sendAppMessage(opt,callback);
 ```javascript
 JSAPI.shareTimeline(opt,callback);
 ```
-
++ 分享到腾讯微博
+```javascript
+JSAPI.shareWeibo(opt,callback);
+```
++ 调用微信支付接口
+```javascript
+JSAPI.pay(opt,callback);
+```
++ 获取收获地址
+```javascript
+JSAPI.getLatest(opt,callback);
+```
++ 编辑收货地址
+```javascript
+JSAPI.edit(opt,callback);
+```
