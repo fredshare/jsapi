@@ -1,23 +1,19 @@
-/**
- * weixin JSAPI 库
- */
- 
 var JSAPI ={
 	ready : function(onBridgeReady){
-		//先看看全局的WeixinJSBridge存不存在，有些版本的微信WeixinJSBridge会初始化为{}，所以还要看看invoke有没有
-		if (typeof WeixinJSBridge == "undefined" || !WeixinJSBridge.invoke){
-		    //没有就监听ready事件
-		    if( document.addEventListener ){
-		        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-		    }else if (document.attachEvent){
-		        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-		        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-		    }
-		}else{
-		    //初始化结束直接就执行吧！
-		    onBridgeReady();
-		}
-	},
+        //先看看全局的WeixinJSBridge存不存在，有些版本的微信WeixinJSBridge会初始化为{}，所以还要看看invoke有没有
+        if (typeof WeixinJSBridge == "undefined" || !WeixinJSBridge.invoke){
+            //没有就监听ready事件
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            //初始化结束直接就执行吧！
+            onBridgeReady();
+        }
+    },
 	invoke : function(methodName, args, callback){
 		this.ready(function(){
 			WeixinJSBridge.invoke(methodName, args, callback);
@@ -40,7 +36,7 @@ var JSAPI ={
 	 */
 	//获取最近的地址
 	getLatest : function(opt){
-		JSAPI.invoke('getLatestAddress', {
+		this.invoke('getLatestAddress', {
 			"appId" : opt.appId,
             "scope" : opt.scope || "jsapi_address",
             "signType" : opt.signType || "sha1",
@@ -67,7 +63,7 @@ var JSAPI ={
     },
     edit : function(opt){
 		//编辑并选择收货地址
-		JSAPI.invoke('editAddress', {
+		this.invoke('editAddress', {
 			"appId" : opt.appId,
             "scope" : opt.scope || "jsapi_address",
             "signType" : opt.signType || "sha1",
@@ -100,7 +96,7 @@ var JSAPI ={
 	        };
 	        document.write(JSON.stringify(res));
 	    */
-		JSAPI.invoke(
+		this.invoke(
 	        'getBrandWCPayRequest',
 	        {
 	            "appId" : opt.app_id, //公众号名称，由商户传入
@@ -122,16 +118,16 @@ var JSAPI ={
 	},
 	//分享
 	sendAppMessage : function(opt, callback){
-		JSAPI.invoke('sendAppMessage', opt, callback);
+		this.invoke('sendAppMessage', opt, callback);
 	},
 	shareTimeline : function(opt, callback){
-		JSAPI.invoke('shareTimeline', opt, callback);
+		this.invoke('shareTimeline', opt, callback);
 	},
 	shareWeibo : function(opt, callback){
-		JSAPI.invoke('shareWeibo', opt, callback);
+		this.invoke('shareWeibo', opt, callback);
 	},
 	on_share_appmessage : function(opt, callback, favorite_opt, favorite_callback){
-		JSAPI.on('menu:share:appmessage', function(argv){
+		this.on('menu:share:appmessage', function(argv){
 			//alert(argv.scene);
 			//alert(favorite_opt.link);
 	        if (argv.scene == "favorite"){//收藏
@@ -147,15 +143,13 @@ var JSAPI ={
 		});
 	},
 	on_share_timeline : function(opt, callback){
-		JSAPI.on('menu:share:timeline', function(argv){
+		this.on('menu:share:timeline', function(argv){
 			shareAPI.shareTimeline(opt, callback)
 		});
 	},
 	on_share_weibo : function(opt, callback){
-		JSAPI.on('menu:share:weibo', function(argv){
+		this.on('menu:share:weibo', function(argv){
 			shareAPI.shareWeibo(opt, callback)
 		});
 	}
 };
-
-
