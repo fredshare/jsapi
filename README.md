@@ -5,8 +5,9 @@ jsapi
 ###使用方法
 
 #### 引入库
+```javascript
 <script type="text/javascript" src="../jsapi.js">
-
+```
 #### 调用方法
 + 分享到appmessage
 ```javascript
