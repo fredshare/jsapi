@@ -151,5 +151,17 @@ var JSAPI ={
 		this.on('menu:share:weibo', function(argv){
 			shareAPI.shareWeibo(opt, callback)
 		});
+	},
+	//收藏功能
+	addGoodsToFav : function(opt,callback){
+		/*opt参数如下：
+		 *{
+         *  "title" : "活动商品测试", //商品名称
+         *  "link" : "http://weigou.qq.com/o2ov1/wx/item/item-detail.shtml", //商品链接
+         *  "desc" : "测试 请勿删除、购买", //商品描述
+         *  "thumbimg" : "http://shp.qpic.cn/weigou_itempic/0/item-0.jpg/120" //商品缩略图 
+         *  }
+		 */
+		this.invoke('addGoodsToFav', opt, callback);
 	}
 };
